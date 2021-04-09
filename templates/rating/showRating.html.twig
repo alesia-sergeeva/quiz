@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Rating panel{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/lib/jqeury-datatables.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/control.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container mx-auto my-auto">
+        {% include 'navbar.html.twig' %}
+        <div class="mx-0 text-center " style="width: 100%; background: whitesmoke;">
+            <h2 class="text-center">Rating</h2>
+            <table id="included_questions" class="table table-bordered table-sm" cellspacing="0" style="width: 100%;">
+                <thead>
+                <tr>
+                    <th scope="col">Position</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Score</th>
+                    <th scope="col">Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for progress in progresses  %}
+                    <tr>
+                        {% if current_user == app.user %}
+                            <th style="background-color: darkgray" scope="row">asd</th>
+                            <td style="background-color: darkgray">{{ progress.user.username }}</td>
+                            <td style="background-color: darkgray">score</td>
+                            <td style="background-color: darkgray">
+                                {% set difference = date(progress.endDate).diff(date(progress.startDate)) %}
+                                {{ difference|date("%h:%i:%s") }}
+                            </td>
+                        {% else %}
+                            <th scope="row">asd</th>
+                            <td>{{ progress.user.username }}</td>
+                            <td>score</td>
+                            <td>
+                                {% set difference = date(progress.endDate).diff(date(progress.startDate)) %}
+                                {{ difference|date("%h:%i:%s") }}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="mt-1 mb-2 d-flex" style="background-color: #343a40; height: 5%; width: 100%">
+                <div class="col-lg-1"></div>
+                <span class="text-white col-lg-6 text-left" style="font-size: 20px">Try playing other quizzes</span>
+                <div class="col-lg-1"></div>
+                <a class="btn btn-primary col-lg-1 text-center" href="{{ path('app_home') }}" style="height: 100%;">Home</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
